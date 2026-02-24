@@ -5,9 +5,11 @@ from fastapi import FastAPI, Header, HTTPException, Query
 
 from app.analysis import compute_hrv_for_range
 from app.config import API_KEY
+from app.routes.hrv_day import router as hrv_day_router
 from app.schemas import HRVResponse, SummaryMetrics, TimeBucket
 
 app = FastAPI(title="NeuroHeart HRV API", version="1.0.0")
+app.include_router(hrv_day_router)
 
 
 @app.get("/health")

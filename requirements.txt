@@ -1,9 +1,10 @@
 fastapi
 uvicorn[standard]
 pandas
-numpy
+numpy==1.26.4
 sqlalchemy
 psycopg2-binary
 python-dotenv
 pydantic>=2
-hrvanalysis
+hrv-analysis
+astropy==5.3.4
