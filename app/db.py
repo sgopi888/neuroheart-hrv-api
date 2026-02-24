@@ -25,6 +25,11 @@ def get_heart_rate_data(user_id: str, start_time: datetime) -> pd.DataFrame:
             params={"user_id": user_id, "start_time": start_time, "tz": TZ},
         )
     df = df.rename(columns={"start_time": "timestamp", "value": "bpm"})
-    df["timestamp"] = pd.to_datetime(df["timestamp"]).dt.tz_localize(TZ)
-    df["bpm"] = df["bpm"].astype(float)
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+
+    if df["timestamp"].dt.tz is None:
+       df["timestamp"] = df["timestamp"].dt.tz_localize(TZ)
+    else:
+       df["timestamp"] = df["timestamp"].dt.tz_convert(TZ)
+       df["bpm"] = df["bpm"].astype(float)
     return df
